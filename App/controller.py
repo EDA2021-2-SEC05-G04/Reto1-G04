@@ -19,10 +19,31 @@
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+import model
 import config as cf
 import model
 import csv
+
+def incatalogo():
+    catalogo = model.catalogonuevo()
+    return catalogo
+
+
+def caragardatos(catalogo):
+    cargarartistas(catalogo)
+    cargarobras(catalogo)
+
+def cargarartistas(catalogo):
+    artistaarchivo = cf.data_dir +"Artists-utf8-small.csv"
+    archivo = csv.DictReader(open(artistaarchivo, encoding="utf-8"))
+    for artista in archivo:
+        model.agregarartista(catalogo, artista)
+
+def cargarobras(catalogo):
+    obraarchivo = cf.data_dir +"Artworks-utf8-small.csv"
+    archivo = csv.DictReader(open(obraarchivo, encoding="utf-8"))
+    for obra in archivo:
+        model.agregararobra(catalogo, obra)
 
 
 """
