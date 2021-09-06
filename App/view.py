@@ -63,6 +63,8 @@ def ultimasobras(catalogo):
     
     return  ulobras
 catalogo = None
+
+
 """
 Menu principal
 """
@@ -80,10 +82,14 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("listando cronológicamente los artistas.")
+        a = controller.ordenar(catalogo["artistas"])
+        for i in lt.iterator(a):
+            print(i["DisplayName"], i["BeginDate"])
+
 
     elif int(inputs[0]) == 3:
         print("listando cronológicamente las adquisiciones")
-
+        
     elif int(inputs[0]) == 4:
         print("clasificando las  obras de un artista por técnica")
     elif int(inputs[0]) == 5:

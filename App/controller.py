@@ -56,4 +56,9 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Funciones de ordenamiento
 
+def ordenar(catalogo):
+    ord = model.ordenarartistas(catalogo)
+    return(ord)
+
+
 # Funciones de consulta sobre el catálogo
