@@ -86,7 +86,7 @@ while True:
         for i in range( 1, 4) : 
             print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"] )
         print( "\n")
-        for i in range(lt.size(a)- 3, lt.size(a)) : 
+        for i in range(lt.size(a)- 2, lt.size(a)+1) : 
             print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"])
 
     elif int(inputs[0]) == 3:
