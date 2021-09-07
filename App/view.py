@@ -80,10 +80,17 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("listando cronológicamente los artistas.")
+        f1 = int(input("Fecha 1: "))
+        f2 = int(input("Fecha 2: "))
+        a = controller.ordenar(catalogo["artistas"], f1,f2)
+        for i in range( 1, 4) : 
+            print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"] )
+        print( "\n")
+        for i in range(lt.size(a)- 2, lt.size(a)+1) : 
+            print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"])
 
     elif int(inputs[0]) == 3:
         print("listando cronológicamente las adquisiciones")
-
     elif int(inputs[0]) == 4:
         print("clasificando las  obras de un artista por técnica")
     elif int(inputs[0]) == 5:

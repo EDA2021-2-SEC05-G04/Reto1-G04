@@ -42,8 +42,8 @@ los mismos.
 def catalogonuevo( ):
     catalogo = {"artistas" : None,
     "obras": None}
-    catalogo["artistas"] = lt.newList("SINGLE_LINKED")
-    catalogo["obras"] = lt.newList("SINGLE_LINKED")
+    catalogo["artistas"] = lt.newList("ARRAY_LIST", cmpfunction=compareartistas)
+    catalogo["obras"] = lt.newList("ARRAY_LIST", cmpfunction=compareartistas)
     return catalogo
 
 # Funciones para agregar informacion al catalogo
@@ -60,5 +60,41 @@ def agregarartista(catalogo, artista):
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+def compareartistas(artista1 , artista2):
+    return(artista1["BeginDate"] > artista2["BeginDate"])
+
 
 # Funciones de ordenamiento
+def busqueda(catalogo, n):
+    i = 1
+    j = lt.size(catalogo)
+    encontro = False
+    posa = None
+    while (i <= j and not encontro):
+        mid = (i + j)  // 2
+        if (n == int(lt.getElement(catalogo, mid)["BeginDate"])):
+            posa = mid
+            encontro = True 
+        elif( n  > int(lt.getElement(catalogo, mid)["BeginDate"])):
+            i = mid + 1
+        else:
+            j  = mid - 1
+    return(posa)
+
+
+def ordenarartistas(catalogo, f1, f2):
+    tamano  = lt.size(catalogo)
+    h = 1
+    while h < tamano//3: 
+        h = 3*h + 1
+    while (h >= 1):
+        for i in range(h, tamano):
+            j = i
+            while (j >= h) and compareartistas(lt.getElement(catalogo, j-h+1) , lt.getElement(catalogo, j+1)):
+                lt.exchange(catalogo, j+1, j-h+1)
+                j -= h
+        h //= 3  
+    f1  = busqueda(catalogo,f1)
+    f2 = busqueda(catalogo,f2)
+    a  = lt.subList(catalogo, f1, (f2+1)  -  f1)
+    return a
