@@ -64,7 +64,24 @@ def compareartistas ( artista1 , artista2):
     return(int(artista1["BeginDate"])> int(artista2["BeginDate"]))
 
 # Funciones de ordenamiento
-def ordenarartistas(catalogo):
+def busqueda(catalogo, n):
+    i = 1
+    j = lt.size(catalogo)
+    encontro = False
+    posa = None
+    while (i <= j and not encontro):
+        mid = (i + j)  // 2
+        if (n == int(lt.getElement(catalogo, mid)["BeginDate"])):
+            posa = mid
+            encontro = True 
+        elif( n  > int(lt.getElement(catalogo, mid)["BeginDate"])):
+            i = mid + 1
+        else:
+            j  = mid - 1
+    return(posa)
+
+
+def ordenarartistas(catalogo, f1, f2):
     tamano  = lt.size(catalogo)
     h = 1
     while h < tamano//3: 
@@ -76,4 +93,7 @@ def ordenarartistas(catalogo):
                 lt.exchange(catalogo, j+1, j-h+1)
                 j -= h
         h //= 3  
-    return catalogo
+    f1  = busqueda(catalogo,f1)
+    f2 = busqueda(catalogo,f2)
+    a  = lt.subList(catalogo, f1, (f2+1)  -  f1)
+    return a
