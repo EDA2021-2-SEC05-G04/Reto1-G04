@@ -42,8 +42,8 @@ los mismos.
 def catalogonuevo( ):
     catalogo = {"artistas" : None,
     "obras": None}
-    catalogo["artistas"] = lt.newList("ARRAY_LIST",cmpfunction=compareartistas)
-    catalogo["obras"] = lt.newList("ARRAY_LIST")
+    catalogo["artistas"] = lt.newList("SINGLE_LINKED")
+    catalogo["obras"] = lt.newList("SINGLE_LINKED")
     return catalogo
 
 # Funciones para agregar informacion al catalogo
@@ -60,8 +60,6 @@ def agregarartista(catalogo, artista):
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-def compareartistas ( artista1 , artista2):
-    return(int(artista1["BeginDate"])> int(artista2["BeginDate"]))
 
 # Funciones de ordenamiento
 def busqueda(catalogo, n):

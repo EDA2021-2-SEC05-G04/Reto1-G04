@@ -63,8 +63,6 @@ def ultimasobras(catalogo):
     
     return  ulobras
 catalogo = None
-
-
 """
 Menu principal
 """
