@@ -34,13 +34,13 @@ def caragardatos(catalogo):
     cargarobras(catalogo)
 
 def cargarartistas(catalogo):
-    artistaarchivo = cf.data_dir +"Artists-utf8-small.csv"
+    artistaarchivo = cf.data_dir +"Artists-utf8-large.csv"
     archivo = csv.DictReader(open(artistaarchivo, encoding="utf-8"))
     for artista in archivo:
         model.agregarartista(catalogo, artista)
 
 def cargarobras(catalogo):
-    obraarchivo = cf.data_dir +"Artworks-utf8-small.csv"
+    obraarchivo = cf.data_dir +"Artworks-utf8-large.csv"
     archivo = csv.DictReader(open(obraarchivo, encoding="utf-8"))
     for obra in archivo:
         model.agregararobra(catalogo, obra)

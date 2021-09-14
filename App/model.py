@@ -63,9 +63,27 @@ def agregarartista(catalogo, artista):
 def compareartistas(artista1 , artista2):
     return(artista1["BeginDate"] > artista2["BeginDate"])
 
-
+def primero(catalogo, pos):
+    primero = False
+    aux = pos
+    elemento = lt.getElement(catalogo, pos)["BeginDate"]
+    while not primero:
+        if lt.getElement(catalogo, aux-1)["BeginDate"] == elemento:
+            #print( str(lt.getElement(catalogo, aux)["DisplayName"]))
+            aux -= 1
+        else:
+            return(aux)
+def ultimo(catalogo, pos):
+    primero = False
+    aux = pos
+    elemento = lt.getElement(catalogo, pos)["BeginDate"]
+    while not primero:
+        if lt.getElement(catalogo, aux+1)["BeginDate"] == elemento:
+            aux += 1
+        else:
+            return(aux)
 # Funciones de ordenamiento
-def busqueda(catalogo, n):
+def busqueda(catalogo, n, inicio):
     i = 1
     j = lt.size(catalogo)
     encontro = False
@@ -79,10 +97,16 @@ def busqueda(catalogo, n):
             i = mid + 1
         else:
             j  = mid - 1
+    if posa == None:
+        if inicio == 0:
+            posa = busqueda(catalogo, n +1)
+        else:
+            posa = busqueda(catalogo, n -1)
+
     return(posa)
 
 
-def ordenarartistas(catalogo, f1, f2):
+def ordenarartistas(catalogo, fi, fo):
     tamano  = lt.size(catalogo)
     h = 1
     while h < tamano//3: 
@@ -94,7 +118,9 @@ def ordenarartistas(catalogo, f1, f2):
                 lt.exchange(catalogo, j+1, j-h+1)
                 j -= h
         h //= 3  
-    f1  = busqueda(catalogo,f1)
-    f2 = busqueda(catalogo,f2)
-    a  = lt.subList(catalogo, f1, (f2+1)  -  f1)
+    f1  = busqueda(catalogo,fi, 0)
+    f2 = busqueda(catalogo,fo, 1)
+    n1 = primero(catalogo,f1)
+    n2 =ultimo(catalogo, f2)
+    a  = lt.subList(catalogo, n1 , (n2 +1)  -n1)
     return a
