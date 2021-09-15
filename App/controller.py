@@ -24,8 +24,8 @@ import config as cf
 import model
 import csv
 
-def incatalogo():
-    catalogo = model.catalogonuevo()
+def incatalogo(tipo):
+    catalogo = model.catalogonuevo(tipo)
     return catalogo
 
 
@@ -34,13 +34,13 @@ def caragardatos(catalogo):
     cargarobras(catalogo)
 
 def cargarartistas(catalogo):
-    artistaarchivo = cf.data_dir +"Artists-utf8-large.csv"
+    artistaarchivo = cf.data_dir +"Artists-utf8-small.csv"
     archivo = csv.DictReader(open(artistaarchivo, encoding="utf-8"))
     for artista in archivo:
         model.agregarartista(catalogo, artista)
 
 def cargarobras(catalogo):
-    obraarchivo = cf.data_dir +"Artworks-utf8-large.csv"
+    obraarchivo = cf.data_dir +"Artworks-utf8-small.csv"
     archivo = csv.DictReader(open(obraarchivo, encoding="utf-8"))
     for obra in archivo:
         model.agregararobra(catalogo, obra)
@@ -58,6 +58,9 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 def ordenar(catalogo, f1,f2):
     ord = model.ordenarartistas(catalogo,f1,f2)
+    return(ord)
+def fechas(catalogo, f1,f2,tamano,ord):
+    ord = model.ordenarobras(catalogo,f1,f2,tamano,ord)
     return(ord)
 
 

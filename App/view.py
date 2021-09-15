@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from datetime import datetime
 import controller
 import config as cf
 import sys
@@ -47,8 +48,8 @@ def printMenu():
 
 
 
-def incatalogo():
-    return controller.incatalogo()
+def incatalogo(tipo):
+    return controller.incatalogo(tipo)
 
 def cargardatos(catalogo):
     controller.caragardatos(catalogo)
@@ -71,8 +72,10 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-        catalogo = incatalogo()
+        tipo = int(input("1 = Array List, 2 = Single Linked"))
+        catalogo = incatalogo(tipo)
         cargardatos(catalogo)
+
         print("artistas cargados: "+ str(lt.size(catalogo["artistas"])))
         print("obras cargadas: "+ str(lt.size(catalogo["obras"])))
         print("ultimos 3 artistas " + str(ultimosartistas(catalogo))+ "\n\n\n ")
@@ -90,7 +93,17 @@ while True:
             print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"])
 
     elif int(inputs[0]) == 3:
+        tamano = int(input("digite el tamanio de la muestra:  "))
         print("listando cronológicamente las adquisiciones")
+        fi = input("fecha 1 : ")
+        fo = input("fecha 2 : ")
+        fechai = datetime.strptime(fi, "%Y-%m-%d")
+        fechao = datetime.strptime(fo, "%Y-%m-%d")
+        ord = input("mg = Merge sort, is = insertio sort, so = shell sort, qs = quick sort")
+        lista = controller.fechas(catalogo["obras"],fechai,fechao,tamano,ord)
+        print("Tiempo de ordenamiento  ", lista[1])
+        print(lista[0])
+        
     elif int(inputs[0]) == 4:
         print("clasificando las  obras de un artista por técnica")
     elif int(inputs[0]) == 5:
