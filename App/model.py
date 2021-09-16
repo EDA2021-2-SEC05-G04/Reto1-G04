@@ -33,7 +33,7 @@ from DISClib.Algorithms.Sorting import quicksort as qs
 from DISClib.Algorithms.Sorting import mergesort as mg
 from datetime import date, timedelta 
 from datetime import datetime
-from time import process_time as time
+from time import process_time 
 assert cf
 import sys
 sys.setrecursionlimit(10**6)
@@ -171,7 +171,7 @@ def eliminarvacias (catalogo):
     lt.removeLast(catalogo)
     return (catalogo)
 def ordenarobras(catalogo,fi, fo, tamano, ord):
-    start_time = time.process_time()
+    start_time = process_time()
     if tamano < lt.size(catalogo):
          catalogo = lt.subList(catalogo, 1, tamano)
     else: 
@@ -186,7 +186,7 @@ def ordenarobras(catalogo,fi, fo, tamano, ord):
         cat = qs.sort(catalogo, compararporfecha)
     else:
         print("error")
-    stop_time = time.process_time()
+    stop_time = process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     cato = eliminarvacias(cat)
     print(cato)
