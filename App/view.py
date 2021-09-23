@@ -28,6 +28,7 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 import model
+from time import process_time 
 
 
 """
@@ -110,18 +111,22 @@ while True:
         consti = controller.catalogonombre(catalogo, nombre)
         histograma = controller.buscarnombre(consti)
         infoobaras = controller.infoobras(consti, histograma[1])
+        
         print("total de obras del artista: " + nombre + " " + str(lt.size(consti)))
         print(str(histograma[0]) + "\n")
         print(infoobaras)
     elif int(inputs[0]) == 5:
         print("clasificando las obras por la nacionalidad de sus creadores")
+        start_time = process_time()
         cc = controller.nacionalidad(catalogo)
         ret = controller.buscartop(cc)
-        print("Total de obras : " + str(ret[2]))
+        stop_time = process_time()
+       
         print(ret[3])
         for i in range(1, lt.size(ret[0])):
             a = lt.getElement(ret[0] , i)
             b= lt.getElement(a, 1)
+            
             print("titulo: " + str(b["Title"]) + " Artista : " +str(b["ConstituentID"]) + " Medio: " + str(b["Medium"]) + " Dimensiones: " + str(b["Dimensions"]) )
     elif int(inputs[0]) == 6:
         print("transportando obras de un departamento")
