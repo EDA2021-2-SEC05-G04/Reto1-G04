@@ -19,33 +19,36 @@
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
+import config as cf
+from DISClib.ADT import list as lt
 import model
 import config as cf
 import model
 import csv
 
-def incatalogo(tipo):
-    catalogo = model.catalogonuevo(tipo)
-    return catalogo
-
+def initcatalogo():
+    catalogo = model.catalogonuevo()
+    return(catalogo)
 
 def caragardatos(catalogo):
-    cargarartistas(catalogo)
     cargarobras(catalogo)
-
-def cargarartistas(catalogo):
-    artistaarchivo = cf.data_dir +"Artists-utf8-small.csv"
-    archivo = csv.DictReader(open(artistaarchivo, encoding="utf-8"))
-    for artista in archivo:
-        model.agregarartista(catalogo, artista)
+    cargarartistas(catalogo)
+    
 
 def cargarobras(catalogo):
     obraarchivo = cf.data_dir +"Artworks-utf8-small.csv"
     archivo = csv.DictReader(open(obraarchivo, encoding="utf-8"))
     for obra in archivo:
-        model.agregararobra(catalogo, obra)
+        model.addobra(catalogo, obra)
 
+def cargarartistas(catalogo):
+    artistaarchivo = cf.data_dir + "Artists-utf8-small.csv"
+    archivo = csv.DictReader(open(artistaarchivo, encoding="utf-8"))
+    for artista in archivo:
+        model.addcid(catalogo, artista)
 
+def buscartop(histo):
+   return (model.buscartop(histo))
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
@@ -56,12 +59,32 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Funciones de ordenamiento
 
-def ordenar(catalogo, f1,f2):
-    ord = model.ordenarartistas(catalogo,f1,f2)
-    return(ord)
+
+def ordenaraa(catalogo,fecha1, fecha2):
+    a = model.ordenarartistas(catalogo,fecha1,fecha2)
+    return a
 def fechas(catalogo, f1,f2,tamano,ord):
     ord = model.ordenarobras(catalogo,f1,f2,tamano,ord)
     return(ord)
 
+def buscarnombre(catalogo):
+    b = model.totaldetecnicas(catalogo)
+    return b
+def catalogonombre(catalogo, nombre):
+    nn = model.buscarco(catalogo,nombre)
+    a = model.buscarconsti(catalogo,nn)
+    return a
+def infoobras(catalogo, tecnica):
+    a = model.listadodeobras(catalogo, tecnica)
+    return a
+def nacionalidad(catalogo):
+    return ( model.artistaenci(catalogo))
 
+def buscardepa(catalogo, depa ):
+    api = model.buscardepa(catalogo, depa )
+    for i in lt.iterator(api): 
+        model.costoporobra(catalogo, i)
+def filtrar(catalogo):
+    return ( model.filtrar(catalogo))
+    
 # Funciones de consulta sobre el catálogo

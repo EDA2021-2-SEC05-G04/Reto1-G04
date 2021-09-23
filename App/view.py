@@ -27,6 +27,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+import model
 
 
 """
@@ -44,12 +45,12 @@ def printMenu():
     print("4- clasificar las  obras de un artista por técnica")
     print("5- clasificar las obras por la nacionalidad de sus creadores ")
     print("6- transportar obras de un departamento")
-    print("6- proponer una nueva exposición en el museo ")
+    print("7- proponer una nueva exposición en el museo ")
 
 
-
-def incatalogo(tipo):
-    return controller.incatalogo(tipo)
+ 
+def initcatalogo():
+    return controller.initcatalogo()
 
 def cargardatos(catalogo):
     controller.caragardatos(catalogo)
@@ -72,20 +73,21 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-        tipo = int(input("1 = Array List, 2 = Single Linked"))
-        catalogo = incatalogo(tipo)
+        catalogo = initcatalogo()
         cargardatos(catalogo)
 
         print("artistas cargados: "+ str(lt.size(catalogo["artistas"])))
         print("obras cargadas: "+ str(lt.size(catalogo["obras"])))
         print("ultimos 3 artistas " + str(ultimosartistas(catalogo))+ "\n\n\n ")
         print("ultimas 3 obras  " + str(ultimasobras(catalogo)) + "\n\n\n ")
-
+        
+    
     elif int(inputs[0]) == 2:
         print("listando cronológicamente los artistas.")
         f1 = int(input("Fecha 1: "))
         f2 = int(input("Fecha 2: "))
-        a = controller.ordenar(catalogo["artistas"], f1,f2)
+        a = controller.ordenaraa(catalogo, f1,f2)
+        print(lt.size(a))
         for i in range( 1, 4) : 
             print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"] )
         print( "\n")
@@ -93,23 +95,42 @@ while True:
             print(lt.getElement(a, i)["DisplayName"] +"   " +  lt.getElement(a, i)["Nationality"] + "  " +  lt.getElement(a, i)["BeginDate"] +"  " + lt.getElement(a, i)["EndDate"])
 
     elif int(inputs[0]) == 3:
-        tamano = int(input("digite el tamanio de la muestra:  "))
         print("listando cronológicamente las adquisiciones")
         fi = input("fecha 1 : ")
         fo = input("fecha 2 : ")
         fechai = datetime.strptime(fi, "%Y-%m-%d")
         fechao = datetime.strptime(fo, "%Y-%m-%d")
-        ord = input("mg = Merge sort, is = insertio sort, so = shell sort, qs = quick sort")
-        lista = controller.fechas(catalogo["obras"],fechai,fechao,tamano,ord)
+        lista = controller.fechas(catalogo["obras"],fechai,fechao)
         print("Tiempo de ordenamiento  ", lista[1])
         print(lista[0])
         
     elif int(inputs[0]) == 4:
         print("clasificando las  obras de un artista por técnica")
+        nombre = input("ingrese el nombre del artista:  ")
+        consti = controller.catalogonombre(catalogo, nombre)
+        histograma = controller.buscarnombre(consti)
+        infoobaras = controller.infoobras(consti, histograma[1])
+        print("total de obras del artista: " + nombre + " " + str(lt.size(consti)))
+        print(str(histograma[0]) + "\n")
+        print(infoobaras)
     elif int(inputs[0]) == 5:
         print("clasificando las obras por la nacionalidad de sus creadores")
+        cc = controller.nacionalidad(catalogo)
+        ret = controller.buscartop(cc)
+        print("Total de obras : " + str(ret[2]))
+        print(ret[3])
+        for i in range(1, lt.size(ret[0])):
+            a = lt.getElement(ret[0] , i)
+            b= lt.getElement(a, 1)
+            print("titulo: " + str(b["Title"]) + " Artista : " +str(b["ConstituentID"]) + " Medio: " + str(b["Medium"]) + " Dimensiones: " + str(b["Dimensions"]) )
     elif int(inputs[0]) == 6:
         print("transportando obras de un departamento")
+        a = input("Departamento :  ")
+        dep = controller.buscardepa(catalogo,a)
+        print("Costo total de transporte:  " + str(catalogo["costototal"]))
+        print("Peso estimado:  " + str(catalogo["peso"]))
+        retu = controller.filtrar(catalogo["nep"])
+        print(retu)
     elif int(inputs[0]) == 7:
         print("Cargando información de los archivos ....")
 
